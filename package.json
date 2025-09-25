@@ -1,0 +1,10 @@
+{
+  "name": "formulario-camilla",
+  "version": "1.0.0",
+  "description": "Formulário pré-consulta com PDF e envio por e-mail",
+  "scripts": {},
+  "dependencies": {
+    "nodemailer": "^6.9.8",
+    "pdfkit": "^0.15.0"
+  }
+}
