@@ -110,15 +110,19 @@ exports.handler = async (event) => {
     // Usa o nome do paciente sem espaços para o arquivo
     const safeName = data.fullName.replace(/\s+/g, '_');
 
+    // Criar nome seguro do paciente
+    const safeName2 = data.fullName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    const date2 = new Date().toISOString().split('T')[0];
+
+    // Enviar e-mail
     await transporter.sendMail({
       from: `"Formulário Camilla" <${process.env.EMAIL_USER}>`,
-      to: 'wagkorg@gmail.com',
+      to: 'eduardopbruder@gmail.com', // médica
+      cc: data.email && data.email.trim() !== '' ? data.email : undefined, // cópia para paciente se tiver email
       subject: `Pré-consulta de ${data.fullName} (${date})`,
       text: 'Segue em anexo o PDF da pré-consulta.',
       attachments: [
-        { 
-            filename: `pre-consulta-${safeName}-${date}.pdf`, content: pdfBuffer 
-        }
+        { filename: `pre-consulta-${safeName}-${date}.pdf`, content: pdfBuffer }
       ]
     });
 
